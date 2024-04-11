@@ -1,0 +1,23 @@
+---
+export type Symbol = {
+  symbol: string;
+  description: string;
+};
+
+type Props = Symbol;
+
+const { symbol, description } = Astro.props;
+---
+
+<button
+  class="symbol-btn group text-3xl relative w-[56px] h-[56px] text-center bg-dark-2 text-light-3 hover:bg-dark-3 rounded transition-all active:bg-neutral-500"
+  value={symbol}
+  onclick={`copyToClipboard("${symbol}")`}
+>
+  {symbol}
+  <div
+    class="text-nowrap font-semibold group-focus:scale-100 group-focus:visible group-focus:opacity-100 group-hover:opacity-100 invisible group-hover:visible opacity-0 scale-90 group-hover:scale-100 transition-all right-1/2 translate-x-1/2 absolute -bottom-4m.,mn bv py-[1px] px-2 bg-accent rounded text-sm text-[#f5f5f5]"
+  >
+    {description}
+  </div>
+</button>

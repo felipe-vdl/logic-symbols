@@ -1,23 +1,93 @@
 ---
-
+import SymbolList, {
+  type SymbolListProps,
+} from "../components/SymbolList.astro";
+const symbols: SymbolListProps[] = [
+  {
+    title: "Matemática",
+    symbols: [{ description: "somatório", symbol: "∑" }],
+  },
+  {
+    title: "Lógica",
+    symbols: [
+      { description: "união", symbol: "⋃" },
+      { description: "interseção", symbol: "⋂" },
+    ],
+  },
+  {
+    title: "Teoria dos Conjuntos",
+    symbols: [
+      { description: "para todo", symbol: "∀" },
+      { description: "existe", symbol: "∃" },
+      { description: "não existe", symbol: "∄" },
+    ],
+  },
+  {
+    title: "Probabilidade e Estatística",
+    symbols: [],
+  },
+];
 ---
 
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Símbolos Lógicos e Matemáticos</title>
+    <title>Símbolos</title>
   </head>
-  <body>
-    <div>teste</div>
+  <body class="bg-dark-1 text-light-1 flex flex-col items-center min-h-svh">
+    <main class="grid sm:grid-cols-1 md:grid-cols-2 container p-6 gap-6 flex-1">
+      {
+        symbols.map((item) => (
+          <SymbolList title={item.title} symbols={item.symbols} />
+        ))
+      }
+    </main>
+    <div
+      class="bg-dark-1 toast border-2 border-dark-3 py-[6px] px-8 text-light-3 rounded-md fixed bottom-7"
+    >
+      Copied to clipboard!
+    </div>
   </body>
 </html>
+<script is:inline>
+  let id = undefined;
+
+  const copyToClipboard = (symbol) => {
+    const copyText = document.createElement("input");
+    copyText.type = "text";
+    copyText.value = symbol;
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(symbol);
+
+    document.querySelector(".toast").classList.add("toast-enter");
+    console.log(document.querySelector(".toast"));
+
+    clearTimeout(id);
+    id = setTimeout(() => {
+      document.querySelector(".toast").classList.remove("toast-enter");
+    }, 1500);
+  };
+</script>
 <style>
-  html {
+  /* html {
     cursor: url("./gato-grande.jpg"), pointer;
   }
 
   html:active {
     cursor: url("./gato-click.jpg"), pointer;
+  } */
+
+  .toast {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: transform 150ms;
+  }
+  .toast-enter {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
   }
 </style>
