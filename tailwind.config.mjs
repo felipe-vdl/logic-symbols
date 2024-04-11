@@ -18,6 +18,9 @@ export default {
         },
         accent: "#346899",
       },
+      backgroundImage: {
+        "radial": "radial-gradient(circle, var(--tw-gradient-stops));"
+      }
     },
   },
   plugins: [],
